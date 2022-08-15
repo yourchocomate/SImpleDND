@@ -1,0 +1,29 @@
+{
+  "name": "simple-dnd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "yourchocomate",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "device-detector-js": "^3.0.3",
+    "express": "^4.18.1",
+    "ioredis": "^5.2.2",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.21.3",
+    "sequelize-transparent-cache": "^2.3.0",
+    "sequelize-transparent-cache-ioredis": "^2.3.0"
+  },
+  "devDependencies": {
+    "faker": "^6.6.6",
+    "sequelize-cli": "^6.4.1"
+  }
+}
