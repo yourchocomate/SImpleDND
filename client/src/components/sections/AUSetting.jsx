@@ -1,83 +1,16 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useBase } from "../../hooks";
+import { useBase, useChart } from "../../hooks";
 import { SwitchCheckBox } from "../ui";
 import { layouts } from "./AUChartLayouts";
 
 const AUSetting = () => {
 
-    const {charts, setCharts} = useBase();
-    const navigate = useNavigate();
-
-    const getCharts = () => {
-        const saved = localStorage.getItem("charts");
-        return saved ? JSON.parse(saved) : charts;
-    }
-
-    const reset = () => {
-        localStorage.setItem("chart-grid-layouts", JSON.stringify(layouts));
-        navigate('/')
-    }
-
-    const chart = getCharts();
-
-    const toggleDau = () => {
-        let newData = {}
-        if(chart.dau) {
-            newData = {...chart, dau: false}
-        }
-        else {
-            newData = {...chart, dau: true}
-        }
-        setCharts(newData);
-        localStorage.setItem("charts", JSON.stringify(newData));
-        reset()
-
-    }
-
-    const toggleWau = () => {
-        let newData = {}
-        if(chart.wau) {
-            newData = {...chart, wau: false}
-        }
-        else {
-            newData = {...chart, wau: true}
-        }
-        setCharts(newData);
-        localStorage.setItem("charts", JSON.stringify(newData));
-        reset()
-
-    }
-
-    const toggleMau = () => {
-        let newData = {}
-        if(chart.mau) {
-            newData = {...chart, mau: false}
-        }
-        else {
-            newData = {...chart, mau: true}
-        }
-        setCharts(newData);
-        localStorage.setItem("charts", JSON.stringify(newData));
-        reset()
-    }
-    
-    const toggleTop = () => {
-        let newData = {}
-        if(chart.top) {
-            newData = {...chart, top: false}
-        }
-        else {
-            newData = {...chart, top: true}
-        }
-        setCharts(newData);
-        localStorage.setItem("charts", JSON.stringify(newData))
-        reset()
-    }
+    const { charts, setCharts } = useBase();
+    const { toggleDau, toggleWau, toggleMau, toggleTop, getCharts} = useChart();
 
     useEffect(() => {
-        const saved = localStorage.getItem("charts");
-        if(saved) setCharts(JSON.parse(saved))
+        setCharts(getCharts());
     },[])
 
     return (

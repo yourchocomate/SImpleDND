@@ -2,20 +2,17 @@ import { Fragment } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
-import { useBase } from '../../hooks'
+import { useBase, useChart } from '../../hooks'
 import { layouts } from '../sections/AUChartLayouts'
 
 const Segmentation = () => {
 
   const navigate = useNavigate();
   const { setChartSegmentation } = useBase();
+  const { resetChartGridLayout } = useChart();
+
   const handleClick = (name) => {
     setChartSegmentation(name);
-  }
-
-  const reset = () => {
-    localStorage.setItem("chart-grid-layouts", JSON.stringify(layouts));
-    navigate('/')
   }
 
   const segmentations = [
@@ -27,7 +24,7 @@ const Segmentation = () => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+        <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-[#00c49f]">
           Segmentation
           <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
         </Menu.Button>
@@ -46,7 +43,7 @@ const Segmentation = () => {
           
             <div className="py-1">
               <Menu.Item>
-                <a onClick={() => reset()} className="text-red-700 block px-4 py-2 text-sm">Reset</a>
+                <a onClick={() => resetChartGridLayout()} className="text-red-700 block px-4 py-2 text-sm">Reset</a>
               </Menu.Item>
             </div>
             {segmentations.map(s => (
