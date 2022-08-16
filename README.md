@@ -7,9 +7,9 @@ Simple dnd dashboard with DAU, WAU, MAU, using mern.
 ## Used Technogies in Backend
 - [Express js](https://expressjs.com/en/starter/installing.html)
 - [Sequelize](https://sequelize.org/docs/v6/), [Sequelize-cli](https://github.com/sequelize/cli), [Mysql2](https://www.npmjs.com/package/mysql2)
-- Sequlize [migrations](https://sequelize.org/docs/v6/other-topics/migrations/)
-- Sequelize [seeders](https://sequelize.org/docs/v6/other-topics/migrations/#creating-the-first-seed)
-- Sequlize [transparent cache](https://github.com/DanielHreben/sequelize-transparent-cache)
+- Sequelize [migrations](https://sequelize.org/docs/v6/other-topics/migrations/)
+- Sequeelize [seeders](https://sequelize.org/docs/v6/other-topics/migrations/#creating-the-first-seed)
+- Sequelize [transparent cache](https://github.com/DanielHreben/sequelize-transparent-cache)
 - [Ioredis](https://www.npmjs.com/package/ioredis)
 - [Bcryptjs](https://www.npmjs.com/package/bcryptjs)
 - [Device Detector Js](https://www.npmjs.com/package/device-detector-js)
@@ -47,6 +47,7 @@ Run migration to migrate tables -
 Run seeders to populate users table - 
 
 `npx sequelize-cli db:seed:all`
+
 Password: `password`
 
 Start Server -
