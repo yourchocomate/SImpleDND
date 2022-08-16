@@ -1,25 +1,23 @@
-import React, { lazy, Suspense, useEffect } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useBase, useChart } from '../../hooks';
-import { layouts } from "./AUChartLayouts";
+import { Loader } from '../ui';
 import TopUsersTable from './TopUsersTable';
 
 const PieChartComponent = lazy(() => import("../recharts/PieChart"));
 const Tiles = lazy(() => import( "../gridLayout/Tiles"));
 
-    
 const AUCharts = () => {
-    
-    const { chartSegmentation, charts } = useBase();
-    const { chartBySegmentation, chartdata } = useChart();
+    const [isBusy, setIsBusy] = useState(true);
+    const { chartSegmentation, charts, chartLayout } = useBase();
+    const { handleChartGridLayoutChange, chartBySegmentation, chartdata } = useChart();
       
     useEffect(() => {
-        chartBySegmentation(chartSegmentation)
+        chartBySegmentation(chartSegmentation).then(() => setIsBusy(false))
     },[chartSegmentation])
 
     return (
-        <div>
-            <Suspense fallback={<div>Page is Loading...</div>}>
-                <Tiles layouts={layouts}>
+        <Suspense fallback={<Loader/>}>
+                <Tiles layouts={chartLayout} onLayoutChange={handleChartGridLayoutChange}>
                     {charts.dau && (
                         <div className="card" key="dau">
                             <div className="flex flex-col items-center w-full absolute top-2 left-0 h-5 cursor-move handle-drag">
@@ -29,11 +27,7 @@ const AUCharts = () => {
                             </div>
                             <h2 className="text-gray-400 font-semibold">Daily Active Users</h2>
                             <div className="w-full h-full flex justify-center items-center">
-                                {chartdata.dau ? (
-                                    <PieChartComponent data={chartdata.dau}/>
-                                ) : (
-                                    <p className="text-gray-400 font-semibold">No Data</p>
-                                 )}
+                                {isBusy ? (<p className="text-gray-400">...loading</p>) : (<PieChartComponent data={chartdata.dau}/>)}
                             </div>
                         </div>
                     )}
@@ -46,11 +40,7 @@ const AUCharts = () => {
                             </div>
                             <h2 className="text-gray-400 font-semibold">Weekly Active Users</h2>
                             <div className="w-full h-full flex justify-center items-center">
-                                {chartdata.wau ? (
-                                    <PieChartComponent data={chartdata.wau}/>
-                                ) : (
-                                    <p className="text-gray-400 font-semibold">No Data</p>
-                                 )}
+                                {isBusy ? (<p className="text-gray-400">...loading</p>) : (<PieChartComponent data={chartdata.wau}/>)}
                             </div>
                         </div>
                     )}
@@ -63,11 +53,7 @@ const AUCharts = () => {
                             </div>
                             <h2 className="text-gray-400 font-semibold">Monthly Active Users</h2>
                             <div className="w-full h-full flex justify-center items-center">
-                                {chartdata.mau ? (
-                                    <PieChartComponent data={chartdata.mau}/>
-                                ) : (
-                                    <p className="text-gray-400 font-semibold">No Data</p>
-                                 )}
+                                {isBusy ? (<p className="text-gray-400">...loading</p>) : (<PieChartComponent data={chartdata.mau}/>)}
                             </div>
                         </div>
                     )}
@@ -80,13 +66,12 @@ const AUCharts = () => {
                         </div>
                         <h2 className="text-gray-400 font-semibold">Top 15 Active Users</h2>
                         <div className="w-full h-[90%] no-scrollbar overflow-y-auto px-4 mt-4">
-                            <TopUsersTable/>
+                            {isBusy ? (<p className="text-gray-400">...loading</p>) : (<TopUsersTable/>)}
                         </div>
                     </div>
-                    )}
-                </Tiles>
-            </Suspense>
-        </div>
+                )}
+            </Tiles>
+        </Suspense>
     );
 }
 

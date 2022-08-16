@@ -25,7 +25,7 @@ const Navbar = ({children}) => {
                             </NavLink>
                             <NavLink
                             to="/register"
-                            className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-[#00cc9f] hover:bg-indigo-50"
+                            className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-[#00cc9f] hover:text-white hover:bg-[#00c49f]"
                             >
                             Sign up
                             </NavLink>
